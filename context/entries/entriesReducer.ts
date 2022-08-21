@@ -9,6 +9,10 @@ type EntriesActionType =
   | {
       type: "Entry - Update-Entry";
       payload: Entry;
+    }
+  | {
+      type: "Entry - Fecth-Entries";
+      payload: Entry[];
     };
 
 export const entriesReducer = (
@@ -31,6 +35,12 @@ export const entriesReducer = (
           }
           return entry;
         }),
+      };
+    }
+    case "Entry - Fecth-Entries": {
+      return {
+        ...state,
+        entries: [...action.payload],
       };
     }
     default:
