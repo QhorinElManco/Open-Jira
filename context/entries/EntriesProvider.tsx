@@ -61,8 +61,6 @@ export const EntriesProvider: FC<EntriesProviderProps> = ({ children }) => {
   };
 
   const deleteEntry = async ({ _id }: Entry, showSnackbar: boolean = false) => {
-    console.log("hola");
-
     try {
       await entriesAPI.delete(`entries/${_id}`);
 
@@ -79,7 +77,8 @@ export const EntriesProvider: FC<EntriesProviderProps> = ({ children }) => {
       dispatch({
         type: "Entry - Delete-Entry",
         payload: { _id },
-      });z
+      });
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
