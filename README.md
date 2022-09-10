@@ -16,10 +16,17 @@ mongodb://localhost:27017/entriesdb
 
 Renombra el archivo **.env.example** a **.env**
 
+## Instalar dependencias
+```
+
+yarn install
+yarn dev
+```
 
 ## Llena la base de datos con informacion de pruebas
 
 Llamara
+
 ```
 http://localhost/api/seed
 ```

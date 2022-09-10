@@ -20,8 +20,8 @@ export default function handler(
       return getEntry(req, res);
     case "PUT":
       return updateEntry(req, res);
-    // case "DELETE":
-    //   return deleteEntry(id, res);
+    case "DELETE":
+      return deleteEntry(req, res);
     default:
       return res.status(400).json({ message: "Endpoint no existe" });
   }
@@ -68,5 +68,24 @@ const updateEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     console.log(error);
     return res.status(500).json({ message: "Error updating entry" });
+  }
+};
+
+const deleteEntry = async (req: NextApiRequest, res: NextApiResponse) => {
+  await db.connect();
+
+  const { id } = req.query;
+
+  try {
+    await Entry.remove({ _id: id });
+    return res.status(204).json({ message: "Eliminado con exito" });
+  } catch (error: any) {
+    await db.disconnect();
+
+    if (error.errors.status)
+      return res.status(400).json({ message: error.errors.status.message });
+
+    console.log(error);
+    return res.status(400).json({ message: "Error deleting entry" });
   }
 };
